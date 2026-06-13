@@ -1,0 +1,59 @@
+import { AppBar, Button as MUIButton } from "@mui/material";
+import {  Routes, Route, Link } from 'react-router-dom';
+import { useState } from "react";
+import View from "./services/view";
+import Sec_Page from "./sec_Page";
+export default function App() {
+  const [language, setLanguage] = useState<string>("");
+
+  return (
+    <>
+      <AppBar
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent:"space-evenly",
+          padding:"20px"
+        }}
+        variant="outlined"
+      >
+        <MUIButton
+          color="success"
+          variant="contained"
+          onClick={() => {
+            setLanguage("ar");
+          }}
+        >
+          العربية
+        </MUIButton>
+
+
+           <Link to="/" style={{textDecoration:'none'}}>
+            <MUIButton color="warning" variant="contained" >came Back</MUIButton>
+          </Link>
+     
+        <Link to="/sec_page" style={{textDecoration:'none'}}>
+            <MUIButton color="warning" variant="contained">Move To Sec</MUIButton>
+          </Link>
+
+        <MUIButton
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            setLanguage("en");
+          }}
+        >
+          English
+        </MUIButton>
+      </AppBar>
+      
+   
+         <Routes>
+          <Route path="/" element={<View Language={language} />} />
+          <Route path="/sec_page" element={<Sec_Page />} />
+         </Routes>
+        
+          
+    </>
+  );
+}

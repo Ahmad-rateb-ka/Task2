@@ -1,6 +1,5 @@
 
 import { useState } from "react";
-import type { User } from "./interface.d";
 
 export const API_URL = "https://jsonplaceholder.typicode.com/posts";
 

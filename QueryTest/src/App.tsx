@@ -3,11 +3,17 @@ import {  Routes, Route, Link } from 'react-router-dom';
 import { useState } from "react";
 import View from "./services/view";
 import Sec_Page from "./sec_Page";
+import { ErrorProvider } from './errorContext';
+import MyPage from "./Mypage";
+
 export default function App() {
   const [language, setLanguage] = useState<string>("");
 
   return (
     <>
+    <ErrorProvider>
+          {navigator.onLine ? 
+          <>
       <AppBar
         sx={{
           display: "flex",
@@ -16,14 +22,14 @@ export default function App() {
           padding:"20px"
         }}
         variant="outlined"
-      >
+        >
         <MUIButton
           color="success"
           variant="contained"
           onClick={() => {
             setLanguage("ar");
           }}
-        >
+          >
           العربية
         </MUIButton>
 
@@ -42,18 +48,22 @@ export default function App() {
           onClick={() => {
             setLanguage("en");
           }}
-        >
+          >
           English
         </MUIButton>
       </AppBar>
       
-   
          <Routes>
           <Route path="/" element={<View Language={language} />} />
           <Route path="/sec_page" element={<Sec_Page />} />
          </Routes>
-        
-          
+         </>
+         :
+         <MyPage />
+        }
+          </ErrorProvider>
+
+
     </>
   );
 }

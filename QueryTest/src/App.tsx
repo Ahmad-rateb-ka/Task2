@@ -1,7 +1,7 @@
 import { AppBar, Button as MUIButton } from "@mui/material";
 import {  Routes, Route, Link } from 'react-router-dom';
 import { useState } from "react";
-import View from "./services/view";
+import View from "./components/view";
 import Sec_Page from "./sec_Page";
 import { ErrorProvider } from './ErrorContext';
 import MyPage from "./MyPage";

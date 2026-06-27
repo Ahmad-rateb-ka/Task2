@@ -1,4 +1,4 @@
-import { useError } from './errorContext'; 
+import { useError } from './ErrorContext'; 
 
 function MyPage() {
   const { showError } = useError();

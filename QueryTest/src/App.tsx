@@ -3,8 +3,8 @@ import {  Routes, Route, Link } from 'react-router-dom';
 import { useState } from "react";
 import View from "./services/view";
 import Sec_Page from "./sec_Page";
-import { ErrorProvider } from './errorContext';
-import MyPage from "./Mypage";
+import { ErrorProvider } from './ErrorContext';
+import MyPage from "./MyPage";
 
 export default function App() {
   const [language, setLanguage] = useState<string>("");

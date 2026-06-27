@@ -1,4 +1,14 @@
-import { Container, IconButton, Tooltip, Button as MUIButton, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
+import {
+  Container,
+  IconButton,
+  Tooltip,
+  Button as MUIButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
@@ -14,8 +24,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { API_URL } from "../services/global";
 import type { User, viewProps } from "../services/interface";
 import { useTableStates } from "../services/global";
-import { UserAdded, useDeleteUser,UserEdited} from "../services/userRepo";
-
+import { UserAdded, useDeleteUser, UserEdited } from "../services/userRepo";
 
 function View(Language: viewProps) {
   const [formData, setFormData] = useState<User | null>(null);
@@ -106,10 +115,10 @@ function View(Language: viewProps) {
     muiTableHeadCellProps: {
       sx: {
         backgroundColor: "#f5f5f5",
-        color: "#1a1a1a", 
-        fontWeight: "bold", 
-        fontSize: "15px", 
-        borderBottom: "2px solid #ccc",   
+        color: "#1a1a1a",
+        fontWeight: "bold",
+        fontSize: "15px",
+        borderBottom: "2px solid #ccc",
       },
     },
 
@@ -117,13 +126,11 @@ function View(Language: viewProps) {
     muiTableBodyCellProps: {
       sx: {
         fontSize: "14px",
-        padding: "12px 16px",// المسافات الداخلية للخلايا
-        textAlign:Language.Language ==="ar"?"right":"left",
-         
+        padding: "12px 16px", // المسافات الداخلية للخلايا
+        textAlign: Language.Language === "ar" ? "right" : "left",
       },
-      
     },
-    
+
     enableRowActions: true,
     positionActionsColumn: "last",
     renderRowActions: ({ row }) => (
@@ -177,13 +184,12 @@ function View(Language: viewProps) {
     <>
       <MaterialReactTable table={table} />
 
-
-{/* start adding dialog */}
+      {/* start adding dialog */}
       <Dialog
         open={isModeAddOpen}
         onClose={() => setIsModelAddOpen(false)}
         disableEnforceFocus
-        >
+      >
         <DialogTitle>Add user information</DialogTitle>
         <form
           onSubmit={(e) => {
@@ -193,7 +199,7 @@ function View(Language: viewProps) {
               setFormAdding(null);
             }
           }}
-          >
+        >
           <DialogContent
             sx={{
               display: "flex",
@@ -201,7 +207,7 @@ function View(Language: viewProps) {
               gap: "1.5rem",
               minWidth: "300px",
             }}
-            >
+          >
             <TextField
               id="txt_id"
               label="title"
@@ -211,11 +217,11 @@ function View(Language: viewProps) {
               onChange={(e) => {
                 setFormAdding((pre) =>
                   pre
-                ? { ...pre, title: e.target.value }
-                : ({ title: e.target.value } as User),
-              );
-            }}
-            required
+                    ? { ...pre, title: e.target.value }
+                    : ({ title: e.target.value } as User),
+                );
+              }}
+              required
             />
             <TextField
               label="body"
@@ -225,16 +231,16 @@ function View(Language: viewProps) {
               onChange={(e) =>
                 setFormAdding((pre) =>
                   pre
-              ? { ...pre, body: e.target.value }
-              : ({ body: e.target.value } as User),
-            )
-          }
-          required
-          />
+                    ? { ...pre, body: e.target.value }
+                    : ({ body: e.target.value } as User),
+                )
+              }
+              required
+            />
           </DialogContent>
           <DialogActions
             sx={{ justifyContent: "space-between", padding: "1rem" }}
-            >
+          >
             <MUIButton onClick={() => setIsModelAddOpen(false)} color="inherit">
               cancel
             </MUIButton>
@@ -243,16 +249,16 @@ function View(Language: viewProps) {
               variant="contained"
               color="primary"
               disabled={isAdding}
-              >
+            >
               {isAdding ? "Adding..." : "Add"}
             </MUIButton>
           </DialogActions>
         </form>
       </Dialog>
 
-        {/* End adding dialog */}
+      {/* End adding dialog */}
 
-        {/*  start editing dialog */}
+      {/*  start editing dialog */}
 
       <Dialog
         open={isModelOpen}
@@ -261,7 +267,7 @@ function View(Language: viewProps) {
           setFormData(null);
         }}
         disableEnforceFocus
-        >
+      >
         <DialogTitle>Edit user information</DialogTitle>
         <form
           onSubmit={(e) => {
@@ -270,7 +276,7 @@ function View(Language: viewProps) {
               editpro(formData);
             }
           }}
-          >
+        >
           <DialogContent
             sx={{
               display: "flex",
@@ -327,8 +333,7 @@ function View(Language: viewProps) {
           </DialogActions>
         </form>
       </Dialog>
-         {/* end editing dialog  */}
-
+      {/* end editing dialog  */}
     </>
   );
 }

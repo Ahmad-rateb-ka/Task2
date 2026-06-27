@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export const UserAdded = () => {
-
   const queryClient = useQueryClient();
 
   const { setIsModelAddOpen } = useTableStates();
@@ -21,7 +20,10 @@ export const UserAdded = () => {
       };
 
       queryClient.setQueryData<User[]>(["users"], (oldItems = []) => {
-        return [confirmedNewUser, ...oldItems.filter((item) => item.id !== confirmedNewUser.id)];
+        return [
+          confirmedNewUser,
+          ...oldItems.filter((item) => item.id !== confirmedNewUser.id),
+        ];
       });
 
       alert("the row is added successfully!");
@@ -39,8 +41,11 @@ export const UserAdded = () => {
   };
 };
 
-export const  UserEdited =({ IsModelOpen, setIsModelOpen, FormData }: EditProps)=> {
-
+export const UserEdited = ({
+  IsModelOpen,
+  setIsModelOpen,
+  FormData,
+}: EditProps) => {
   const [formData, setFormData] = useState<User | null>(null);
 
   const queryClient = useQueryClient();
@@ -68,39 +73,37 @@ export const  UserEdited =({ IsModelOpen, setIsModelOpen, FormData }: EditProps)
       alert(e.message);
     },
   });
-  return{
-      editpro:EditMUtation.mutate,
-      editSucess:EditMUtation.isSuccess,
-      editpanding:EditMUtation.isPending
-
+  return {
+    editpro: EditMUtation.mutate,
+    editSucess: EditMUtation.isSuccess,
+    editpanding: EditMUtation.isPending,
   };
-
-}
-
-export const  useDeleteUser = () =>
-{
-  const queryclient=useQueryClient();
-
- const DeleteMutation = useMutation({
-  mutationFn:DeleteService.delete,
-  onSuccess: (deletedUser: User) => {
-    queryclient.setQueryData<User[]>(["users"], (oldData) => {
-      if (!oldData) {
-        return [];
-      }
-      return oldData.filter((user) => user.id !== deletedUser.id);
-    });
-    alert("the is deleted Successfully ");
-    queryclient.invalidateQueries({ queryKey: ["users"] });
-  },
-  onError: (e) => {
-    alert(e.message);
-  },
-});
-
-return{
-  deleteUser:DeleteMutation.mutate,
-  isDeleting:DeleteMutation.isPending,
-}
 };
 
+export const useDeleteUser = () => {
+  const queryclient = useQueryClient();
+
+  const DeleteMutation = useMutation({
+    mutationFn: DeleteService.delete,
+    onSuccess: (deletedUser: User) => {
+      queryclient.setQueryData<User[]>(["users"], (oldData) => {
+        if (!oldData) {
+          return [];
+        }
+        return oldData.filter((user) => user.id !== deletedUser.id);
+      });
+      alert("the is deleted Successfully ");
+      queryclient.setQueryData<User[]>(["users"], (oldData = []) => {
+        return oldData.filter((user) => user.id !== deletedUser.id);
+      });
+    },
+    onError: (e) => {
+      alert(e.message);
+    },
+  });
+
+  return {
+    deleteUser: DeleteMutation.mutate,
+    isDeleting: DeleteMutation.isPending,
+  };
+};

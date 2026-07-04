@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { EditProps, User } from "./interface.d";
 import { AddService, DeleteService } from "./PostServices";
 import { API_URL, useTableStates } from "./global";
-import { useEffect, useState } from "react";
 import axios from "axios";
 
 export const UserAdded = () => {
@@ -42,19 +41,13 @@ export const UserAdded = () => {
 };
 
 export const UserEdited = ({
-  IsModelOpen,
   setIsModelOpen,
-  FormData,
 }: EditProps) => {
-  const [formData, setFormData] = useState<User | null>(null);
+ 
 
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    if (FormData) {
-      setFormData(FormData);
-    }
-  }, [FormData, IsModelOpen]);
+
 
   const EditMUtation = useMutation({
     mutationFn: async (US: User) => {
